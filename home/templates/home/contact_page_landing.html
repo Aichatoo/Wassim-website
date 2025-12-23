@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div style="padding: 100px 20px; text-align: center; background: #0A192F; min-height: 60vh; color: white;">
+    <h1 style="color: #FFD700; font-size: 3.5rem; margin-bottom: 20px;">Message envoyé !</h1>
+    
+    <div style="font-size: 1.4rem; max-width: 600px; margin: 0 auto 40px; line-height: 1.6; opacity: 0.9;">
+        {% if page.thank_you_text %}
+            {{ page.thank_you_text|richtext }}
+        {% else %}
+            Merci pour votre message, Wassim vous répondra dès que possible.
+        {% endif %}
+    </div>
+
+    <a href="/" style="display: inline-block; padding: 15px 35px; background: #FFD700; color: #0A192F; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s;">
+        Retour à l'accueil
+    </a>
+</div>
+{% endblock %}

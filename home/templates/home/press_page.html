@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<style>
+    .press-section {
+        background: radial-gradient(circle at center, #0A192F 0%, #050C1A 100%);
+        padding: 80px 20px;
+        color: white;
+        text-align: center;
+    }
+
+    .press-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+        max-width: 1200px;
+        margin: 60px auto;
+        perspective: 1000px; /* Ajoute de la profondeur */
+    }
+
+    .press-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px); /* Effet de verre */
+        border-radius: 24px;
+        padding: 30px;
+        border: 1px solid rgba(255, 215, 0, 0.1);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+    }
+
+    /* Effet fun : inclinaison légère alternée */
+    .press-grid .press-card:nth-child(odd) { transform: rotate(-1deg); }
+    .press-grid .press-card:nth-child(even) { transform: rotate(1deg); }
+
+    .press-card:hover {
+        transform: translateY(-15px) rotate(0deg) scale(1.05) !important;
+        background: rgba(255, 255, 255, 0.07);
+        border-color: #FFD700;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255, 215, 0, 0.2);
+        z-index: 10;
+    }
+
+    .press-logo {
+        background: white;
+        width: 100%;
+        height: 100px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        margin-bottom: 25px;
+        transform: translateZ(20px); /* Sort du cadre au survol */
+    }
+
+    .press-quote {
+        font-family: 'Georgia', serif;
+        font-style: italic;
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #E2E8F0;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    /* Ajout de guillemets géants décoratifs */
+    .press-quote::before {
+        content: '"';
+        position: absolute;
+        top: -20px;
+        left: -10px;
+        font-size: 4rem;
+        color: rgba(255, 215, 0, 0.1);
+    }
+
+    .press-btn {
+        background: transparent;
+        color: #FFD700;
+        border: 2px solid #FFD700;
+        padding: 12px 25px;
+        border-radius: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: 0.3s;
+    }
+
+    .press-btn:hover {
+        background: #FFD700;
+        color: #0A192F;
+        box-shadow: 0 0 15px #FFD700;
+    }
+
+   /* Conteneur optimisé pour les logos de presse */
+    .press-logo {
+        height: 80px; 
+        width: 100%;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white; /* Fond blanc pour faire ressortir les logos officiels */
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .press-logo img {
+        max-height: 100%;
+        max-width: 90%;
+        object-fit: contain;
+    }
+
+    .press-quote {
+        font-style: italic;
+        line-height: 1.7;
+        font-size: 1.1rem;
+        color: #CBD5E0;
+        margin-bottom: 25px;
+        position: relative;
+        padding-top: 10px;
+    }
+
+    .press-btn {
+        margin-top: auto;
+        color: #FFD700;
+        text-decoration: none;
+        font-weight: bold;
+        border: 1px solid #FFD700;
+        padding: 10px 20px;
+        border-radius: 50px;
+        transition: 0.3s;
+    }
+
+    .press-btn:hover {
+        background: #FFD700;
+        color: #0A192F;
+    }
+</style>
+
+<div class="press-section">
+    <h1 style="color: #FFD700; font-size: 3rem; text-transform: uppercase;">La Presse en Parle</h1>
+    <div style="max-width: 700px; margin: 0 auto; opacity: 0.8;">
+        {{ page.intro|richtext }}
+    </div>
+
+    <div class="press-grid">
+        {% for block in page.press_articles %}
+            <div class="press-card">
+                
+                <div class="press-logo">
+                    {% if block.value.publication_logo %}
+                        {% image block.value.publication_logo height-100 as logo %}
+                        <img src="{{ logo.url }}" alt="{{ block.value.publication_name }}">
+                    {% else %}
+                        {# Si pas de logo, on affiche le nom en texte foncé pour être lisible sur le fond blanc #}
+                        <h3 style="color: #0A192F; margin: 0;">{{ block.value.publication_name }}</h3>
+                    {% endif %}
+                </div>
+
+                <div class="press-quote">
+                    "{{ block.value.excerpt }}"
+                </div>
+
+                {% if block.value.article_url %}
+                    <a href="{{ block.value.article_url }}" target="_blank" class="press-btn">
+                        Lire l'article complet →
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

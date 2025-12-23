@@ -1,0 +1,114 @@
+/*
+🎨 WASSIM EL FATH - STYLES DE BASE
+=====================================
+
+Ce fichier contient les styles fondamentaux du site :
+- Variables de couleurs
+- Typographie
+- Navigation
+- Footer
+- Utilitaires
+
+💡 Philosophie : Mobile-first, moderne, minimaliste
+*/
+
+/* ==========================================
+   🎨 VARIABLES CSS (Couleurs, espacements)
+   ========================================== */
+
+/* VARIABLES DE COULEURS */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #EBF5FB 0%, #FAF9F6 100%);
+    padding: 8rem 0 4rem;
+}
+/* Hero Section */
+.hero-section,
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #EBF5FB 0%, #FAF9F6 100%);
+    padding: 8rem 0 4rem;
+}
+:root {
+    --deep-blue: #0A192F;      /* Fond principal */
+    --light-blue: #112240;     /* Sections secondaires */
+    --electric-blue: #0077B6;  /* Boutons et liens */
+    --text-white: #CCD6F6;     /* Texte clair */
+    --pure-white: #FFFFFF;     /* Titres */
+}
+
+body {
+    background-color: var(--deep-blue);
+    color: var(--text-white);
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: rgba(10, 25, 47, 0.95);
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--electric-blue);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--electric-blue);
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-white);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--electric-blue);
+}
+
+/* FOOTER */
+.site-footer {
+    background-color: var(--light-blue);
+    padding: 4rem 1rem;
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.social-icons i {
+    font-size: 2rem;
+    color: var(--text-white);
+    transition: transform 0.3s, color 0.3s;
+}
+
+.social-icons i:hover {
+    color: var(--electric-blue);
+    transform: translateY(-5px);
+}

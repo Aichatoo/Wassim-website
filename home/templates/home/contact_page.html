@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+    /* Cache les titres par défaut pour garder le design propre */
+    h1.page-title, .hero-contact-header, .violet-banner { display: none !important; }
+
+    .contact-wrapper {
+        display: flex;
+        max-width: 1100px;
+        margin: 40px auto 60px;
+        background: #162C4E;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+
+    .contact-visual { flex: 1; min-height: 500px; background-color: #050C1A; }
+    .contact-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .contact-body { flex: 1; padding: 40px 60px; text-align: left; color: white; display: flex; flex-direction: column; justify-content: center; }
+    .contact-body h1 { color: #FFD700; margin-top: 0; font-size: 2.5rem; font-family: sans-serif; text-transform: uppercase; }
+
+    .form-row { margin-bottom: 15px; }
+    .form-row label { display: block; margin-bottom: 5px; color: #CBD5E0; font-weight: bold; font-family: sans-serif; }
+    
+    .form-row input, .form-row textarea, .form-row select {
+        width: 100%; padding: 12px; border-radius: 8px;
+        border: 1px solid #2D3748; background: #0A192F !important; color: white !important;
+        font-family: sans-serif; box-sizing: border-box;
+    }
+
+    /* Animation du bouton */
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+    
+    .btn-send {
+        background: #FFD700; color: #0A192F; width: 100%;
+        padding: 15px; border: none; border-radius: 8px;
+        font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+        margin-top: 10px;
+        animation: pulse-gold 2s infinite;
+    }
+    .btn-send:hover { background: white; transform: scale(1.02); animation: none; }
+
+    .social-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,215,0,0.2);
+    }
+    .social-icon { color: #FFD700; font-size: 1.8rem; text-decoration: none; transition: 0.3s; }
+    .social-icon:hover { color: white; transform: translateY(-3px); }
+
+    @media (max-width: 768px) { 
+        .contact-wrapper { flex-direction: column; margin: 20px; } 
+        .contact-visual { min-height: 300px; }
+    }
+</style>
+
+<div class="contact-wrapper">
+    <div class="contact-visual">
+        {% if page.contact_image %}
+            {% image page.contact_image fill-800x1200 as contact_pic %}
+            <img src="{{ contact_pic.url }}" alt="Wassim">
+        {% else %}
+            <div style="padding: 100px; text-align: center; color: #2D3748;">📸 Photo de Wassim</div>
+        {% endif %}
+    </div>
+
+    <div class="contact-body">
+        <h1>Contact</h1>
+        
+        {% if page.intro %}
+            <div style="margin-bottom: 20px; opacity: 0.9;">{{ page.intro|richtext }}</div>
+        {% endif %}
+
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-row">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-send">ENVOYER LE MESSAGE</button>
+        </form>
+
+        <div class="social-section">
+            <div class="social-section">
+    <p style="color: white; font-weight: bold; margin-bottom: 15px; font-family: sans-serif;">Retrouvez-moi aussi ici :</p>
+    <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 25px;">
+        
+        {# Appel correct pour BaseGenericSetting #}
+        {% with social=settings.home.SiteSettings %}
+            
+            {% if social.instagram_url %}
+                <a href="{{ social.instagram_url }}" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            {% endif %}
+
+            {% if social.tiktok_url %}
+                <a href="{{ social.tiktok_url }}" target="_blank" class="social-icon">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            {% endif %}
+
+            {% if social.youtube_url %}
+                <a href="{{ social.youtube_url }}" target="_blank" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            {% endif %}
+
+            {% if social.facebook_url %}
+                <a href="{{ social.facebook_url }}" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            {% endif %}
+
+            {% if social.linktree_url %}
+                <a href="{{ social.linktree_url }}" target="_blank" class="social-icon" style="display: flex; align-items: center; gap: 8px; border: 1px solid #FFD700; padding: 5px 15px; border-radius: 50px; text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13.511 5.853l4.005-4.117 2.325 2.381-4.201 4.005h4.628v3.487h-4.539l4.217 4.125-2.325 2.381-4.125-4.125V24h-3.487V18l-4.156 4.125-2.325-2.381 4.217-4.125H3.725v-3.487h4.606l-4.104-4.005 2.325-2.381 3.984 4.117V0h3.487v5.853z"/>
+                    </svg>
+                    <span style="font-size: 0.9rem; font-weight: bold; font-family: sans-serif;">Linktree</span>
+                </a>
+            {% endif %}
+
+        {% endwith %}
+    </div>
+</div>
+            
+
+{% endblock %}

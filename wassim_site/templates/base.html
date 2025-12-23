@@ -1,0 +1,131 @@
+{% load static wagtailcore_tags wagtailuserbar wagtailsettings_tags %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wassim EL FATH</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+    <style>
+        nav ul li a { transition: color 0.3s ease; }
+        nav ul li a:hover { color: #FFD700 !important; }
+
+        /* FOOTER MIS À JOUR : Design flexible */
+        footer {
+            text-align: center;
+            padding: 40px 20px; /* Un peu plus d'espace pour les icônes */
+            background-color: #050C1A;
+            border-top: 1px solid #1e2d4d;
+            color: white;
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .footer-socials a {
+            color: #FFD700;
+            font-size: 1.6rem;
+            transition: transform 0.3s, color 0.3s;
+            text-decoration: none;
+        }
+
+        .footer-socials a:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        .copyright { 
+            font-size: 0.85rem; 
+            opacity: 0.5; 
+            letter-spacing: 1px; 
+            margin: 0;
+        }
+    </style>
+
+    {% if settings.home.SiteSettings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.home.SiteSettings.google_analytics_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ settings.home.SiteSettings.google_analytics_id }}');
+    </script>
+    {% endif %}
+</head>
+
+<body style="background-color: #0A192F; color: white; margin: 0; font-family: sans-serif; display: flex; flex-direction: column; min-height: 100vh;">
+    
+    {% wagtailuserbar %}
+
+    <header style="border-bottom: 1px solid #1e2d4d; padding: 20px 0; background-color: #0A192F;">
+        <nav style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+            <a href="/" style="text-decoration: none; color: white; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">
+                Wassim EL FATH
+            </a>
+
+            <ul style="list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; align-items: center;">
+                <li><a href="/" style="color: white; text-decoration: none;">Accueil</a></li>
+                <li><a href="/spectacles/" style="color: white; text-decoration: none;">Spectacles</a></li>
+                <li><a href="/galerie/" style="color: white; text-decoration: none;">Galerie</a></li>
+                <li><a href="/presse/" style="color: white; text-decoration: none;">Presse</a></li>
+                <li><a href="/a-propos/" style="color: white; text-decoration: none;">À Propos</a></li>
+                <li>
+                    <a href="/contact/" style="background-color: #FFD700; color: #0A192F; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s;">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="flex: 1;">
+        {% block content %}{% endblock %}
+    </main>
+
+    {# 👣 FOOTER PROPRE ET LIÉ À L'ADMIN #}
+    {# 👣 UN SEUL FOOTER PROPRE #}
+<footer style="text-align: center; padding: 40px 20px; background-color: #050C1A; border-top: 1px solid #1e2d4d; color: white;">
+    
+    <div class="footer-socials" style="display: flex; justify-content: center; gap: 25px; margin-bottom: 20px;">
+        {% if settings.home.SiteSettings.instagram_url %}
+            <a href="{{ settings.home.SiteSettings.instagram_url }}" target="_blank" style="color: #FFD700; font-size: 1.6rem;"><i class="fab fa-instagram"></i></a>
+        {% endif %}
+        
+        {% if settings.home.SiteSettings.tiktok_url %}
+            <a href="{{ settings.home.SiteSettings.tiktok_url }}" target="_blank" style="color: #FFD700; font-size: 1.6rem;"><i class="fab fa-tiktok"></i></a>
+        {% endif %}
+        
+        {% if settings.home.SiteSettings.youtube_url %}
+            <a href="{{ settings.home.SiteSettings.youtube_url }}" target="_blank" style="color: #FFD700; font-size: 1.6rem;"><i class="fab fa-youtube"></i></a>
+        {% endif %}
+        
+        {% if settings.home.SiteSettings.facebook_url %}
+            <a href="{{ settings.home.SiteSettings.facebook_url }}" target="_blank" style="color: #FFD700; font-size: 1.6rem;"><i class="fab fa-facebook"></i></a>
+        {% endif %}
+
+        {# L'enveloppe ne s'affiche que si l'email est rempli dans les Settings #}
+        {% if settings.home.SiteSettings.footer_email %}
+            <a href="mailto:{{ settings.home.SiteSettings.footer_email }}" style="color: #FFD700; font-size: 1.6rem;"><i class="fas fa-envelope"></i></a>
+        {% endif %}
+    </div>
+
+    <p style="font-size: 0.85rem; opacity: 0.5; letter-spacing: 1px; margin: 0;">
+        © 2025 Wassim EL FATH - Tous droits réservés
+    </p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+</body>
+</html>

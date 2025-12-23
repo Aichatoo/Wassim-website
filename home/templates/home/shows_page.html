@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div style="background-color: #050a14; padding: 60px 0; min-height: 80vh;">
+    <div class="container">
+        <h2 style="color: white; text-align: center; margin-bottom: 40px; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px;">
+            Prochaines Dates 🎭
+        </h2>
+
+        <div class="gad-style-carousel">
+            {% for show_block in page.shows %}
+                {% with show=show_block.value %}
+                <div class="carousel-item-wrapper">
+                    <a href="{{ show.ticket_link|default:'#' }}" target="_blank" style="text-decoration: none;">
+                        <div class="poster-card">
+                            {% if show.poster %}
+                                {# On force le format portrait 300x400 #}
+                                {% image show.poster fill-300x400 as img %}
+                                <img src="{{ img.url }}" alt="{{ show.title }}" class="poster-img">
+                            {% endif %}
+                            
+                            <div class="poster-overlay">
+                                <span class="view-btn">Réserver</span>
+                            </div>
+                        </div>
+                        <div class="show-info">
+                            <p class="show-date">{{ show.date|date:"d F Y"|upper }}</p>
+                            <p class="show-city">{{ show.city|default:show.venue|upper }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Style des cartes inspiré de GadElmaleh.com */
+    .carousel-item-wrapper .carousel-item-wrapper {
+    padding: 0 10px;
+    outline: none;
+    max-width: 270px; /* Limite la largeur de chaque affiche */
+    margin: 0 auto;   /* Centre l'affiche dans sa colonne */
+}
+    .poster-card {
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        background: #111;
+    }
+    .poster-card:hover { transform: translateY(-10px); }
+    .poster-img { width: 100%; height: auto; display: block; border: 1px solid rgba(255,255,255,0.1); }
+    
+    .poster-overlay {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); display: flex; align-items: center;
+        justify-content: center; opacity: 0; transition: 0.3s;
+    }
+    .poster-card:hover .poster-overlay { opacity: 1; }
+    .view-btn { border: 1px solid white; color: white; padding: 8px 20px; text-transform: uppercase; font-size: 0.8rem; }
+
+    .show-info { text-align: center; margin-top: 15px; color: white; }
+    .show-date { font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; color: #fff; }
+    .show-city { font-size: 0.8rem; color: #aaa; letter-spacing: 1px; }
+
+    /* Flèches de navigation */
+    .slick-prev, .slick-next { z-index: 10; width: 40px; height: 40px; }
+    .slick-prev:before, .slick-next:before { font-size: 40px; opacity: 0.8; }
+</style>
+
+<script>
+    // On s'assure que le code ne s'exécute que quand la page est prête
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.gad-style-carousel').slick({
+            infinite: false,
+            slidesToShow: 4, // 4 affiches comme sur le site de Gad
+            slidesToScroll: 1,
+            dots: false,
+            arrows: true,
+            responsive: [
+                { breakpoint: 1024, settings: { slidesToShow: 3 } },
+                { breakpoint: 768, settings: { slidesToShow: 2 } },
+                { breakpoint: 480, settings: { slidesToShow: 1 } }
+            ]
+        });
+    });
+</script>
+{% endblock %}

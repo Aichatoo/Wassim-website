@@ -1,0 +1,650 @@
+/*
+🧩 WASSIM EL FATH - COMPOSANTS RÉUTILISABLES
+=============================================
+
+Ce fichier contient tous les composants UI du site :
+- Boutons
+- Cartes
+- Grilles
+- Sections spécifiques (hero, shows, galerie)
+
+💡 Ces classes peuvent être réutilisées partout dans le site
+*/
+
+
+/* ==========================================
+   🔘 BOUTONS
+   ========================================== */
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-family: inherit;
+}
+
+/* Bouton principal (bleu) */
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: var(--white);
+    border-color: var(--accent-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--text-dark);
+    border-color: var(--text-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Bouton secondaire (contour) */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-dark);
+    border-color: var(--text-dark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-dark);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* Tailles de boutons */
+.btn-small {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Bouton pleine largeur (mobile) */
+.btn-block {
+    display: block;
+    width: 100%;
+}
+
+
+/* ==========================================
+   🎭 SECTION HERO (Page d'accueil)
+   ========================================== */
+
+.hero-section {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--soft-blue) 0%, var(--beige) 100%);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+}
+
+.hero-text {
+    /* Colonne de texte */
+}
+
+.hero-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-blue);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-bottom: var(--spacing-lg);
+}
+
+.hero-cta {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.hero-image {
+    /* Colonne image */
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-cta {
+        justify-content: center;
+    }
+}
+
+
+/* ==========================================
+   🎪 CARTES SPECTACLES
+   ========================================== */
+
+.shows-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.show-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.show-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Badge de date */
+.show-date-badge {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+    color: var(--white);
+    padding: var(--spacing-sm);
+    border-radius: 12px;
+    text-align: center;
+    width: 80px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.date-day {
+    display: block;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.date-month {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Infos du spectacle */
+.show-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.show-location,
+.show-time {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Image/affiche du spectacle (si présente) */
+.show-poster {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: var(--spacing-sm);
+}
+
+
+/* ==========================================
+   📸 GALERIES
+   ========================================== */
+
+/* Grille de galerie standard (page Galerie) */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+/* Petite grille (aperçu page d'accueil) */
+.gallery-grid-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 1; /* Carré */
+    background-color: var(--light-gray);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay au hover */
+.gallery-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(93, 173, 226, 0.8), rgba(248, 180, 217, 0.8));
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+
+/* ==========================================
+   📰 CARTES PRESSE
+   ========================================== */
+
+.press-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+}
+
+.press-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-normal);
+}
+
+.press-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.press-publication {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+.press-type {
+    display: inline-block;
+    background-color: var(--soft-blue);
+    color: var(--accent-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.press-excerpt {
+    font-style: italic;
+    color: var(--text-gray);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.7;
+}
+
+.press-date {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+
+/* ==========================================
+   👤 SECTION À PROPOS
+   ========================================== */
+
+.about-section {
+    padding: var(--spacing-2xl) 0;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--spacing-2xl);
+    align-items: center;
+}
+
+.about-text {
+    /* Colonne de texte */
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: var(--spacing-md);
+}
+
+.about-image {
+    /* Colonne image */
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================
+   📧 FORMULAIRE DE CONTACT
+   ========================================== */
+
+.contact-form {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    max-width: 700px;
+    margin: var(--spacing-xl) auto;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Messages d'erreur */
+.form-error {
+    color: #E74C3C;
+    font-size: 0.9rem;
+    margin-top: var(--spacing-xs);
+}
+
+/* Page de confirmation */
+.thank-you-message {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    background-color: var(--soft-blue);
+    border-radius: 20px;
+    margin: var(--spacing-xl) auto;
+    max-width: 600px;
+}
+
+.thank-you-message h2 {
+    color: var(--accent-blue);
+    margin-bottom: var(--spacing-md);
+}
+
+
+/* ==========================================
+   ✨ SECTION CTA (Call-to-Action)
+   ========================================== */
+
+.cta-section {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--pale-pink) 0%, var(--soft-blue) 100%);
+}
+
+.cta-box {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--spacing-md);
+}
+
+.cta-text {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.8;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+/* ==========================================
+   🖼️ UTILITAIRES D'IMAGES
+   ========================================== */
+
+.rounded-image {
+    border-radius: 16px;
+}
+
+.circular-image {
+    border-radius: 50%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.image-shadow {
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* ==========================================
+   🎨 CAROUSEL (pour les spectacles)
+   ========================================== */
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: var(--spacing-xl);
+}
+
+.carousel-track {
+    display: flex;
+    gap: var(--spacing-lg);
+    transition: transform 0.5s ease;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--white);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.carousel-btn:hover {
+    background-color: var(--accent-blue);
+    color: var(--white);
+    border-color: var(--accent-blue);
+}
+
+.carousel-btn-prev {
+    left: 0;
+}
+
+.carousel-btn-next {
+    right: 0;
+}
+
+/* Dots de navigation */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.carousel-dot.active,
+.carousel-dot:hover {
+    background-color: var(--accent-blue);
+    transform: scale(1.2);
+}
+
+
+/* ==========================================
+   📱 RESPONSIVE - MOBILE
+   ========================================== */
+
+@media (max-width: 768px) {
+    /* Grilles sur 1 colonne */
+    .shows-grid,
+    .press-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Galerie 2 colonnes sur mobile */
+    .gallery-grid,
+    .gallery-grid-small {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Boutons pleine largeur sur mobile */
+    .hero-cta,
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .hero-cta .btn,
+    .cta-buttons .btn {
+        width: 100%;
+    }
+    
+    /* Contact form pleine largeur */
+    .contact-form {
+        padding: var(--spacing-md);
+    }
+}
+
+
+/*
+💡 NOTES POUR LE DÉVELOPPEUR JUNIOR :
+
+1. 🧩 Composants réutilisables
+   - Classes génériques (btn, card, etc.)
+   - Peuvent être utilisées n'importe où dans le site
+
+2. 📐 Grid layout
+   - Grilles auto-adaptatives : repeat(auto-fit, minmax(...))
+   - S'ajustent automatiquement selon l'espace disponible
+
+3. 🎨 Transitions
+   - Ajouter transition: all var(--transition-normal);
+   - Effet smooth au hover
+
+4. 📱 Mobile-first
+   - Styles de base = mobile
+   - @media pour ajuster sur desktop
+
+5. 🖼️ aspect-ratio
+   - Maintient un ratio largeur/hauteur
+   - Exemple : aspect-ratio: 1 = carré
+
+6. 🎯 Nommage BEM (Block Element Modifier)
+   - .show-card = Block
+   - .show-card__title = Element
+   - .show-card--featured = Modifier
+
+7. ✨ Hover effects
+   - Transform: translateY(-5px) = "soulève" l'élément
+   - Ajoute de la profondeur et du dynamisme
+
+8. 🔄 Flexbox vs Grid
+   - Flexbox : alignement 1D (ligne ou colonne)
+   - Grid : layout 2D (lignes ET colonnes)
+*/

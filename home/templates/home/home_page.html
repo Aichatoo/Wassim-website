@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>
+    /* Hero Section */
+    .hero-home {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #050C1A;
+        padding: 60px 20px;
+    }
+    
+    .hero-img-bg {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover;
+        opacity: 0.2; 
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+        max-width: 900px;
+    }
+
+    /* --- PHOTO SANS CERCLE --- */
+    .portrait-main 
+    {
+        width: 400px;
+        max-width: 90%;
+        margin: 0 auto 30px;
+        transition: 0.5s;
+    }
+
+    .portrait-main img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        border: 2px solid #FFD700;
+    }
+
+    .portrait-main:hover {
+        transform: scale(1.03);
+        filter: brightness(1.1);
+    }
+
+    .hero-content h1 { 
+        font-size: 3.5rem; 
+        color: #FFD700; 
+        margin-bottom: 5px; 
+        text-transform: uppercase; 
+    }
+    
+    .hero-content h2 { 
+        font-size: 1.8rem; 
+        color: white; 
+        margin-bottom: 25px; 
+        font-weight: 300; 
+        letter-spacing: 2px; 
+    }
+    
+    .hero-description { 
+        font-size: 1.15rem; 
+        line-height: 1.8; 
+        background: rgba(10, 25, 47, 0.8); 
+        padding: 30px; 
+        border-radius: 20px;
+        border-left: 3px solid #FFD700;
+    }
+
+    /* Témoignages */
+    .testimonial-section {
+        background-color: #162C4E;
+        padding: 80px 20px;
+        text-align: center;
+        color: white;
+    }
+    .testimonial-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 40px auto 0;
+    }
+    .testimonial-card {
+        background: #0A192F;
+        border-top: 4px solid #FFD700;
+        padding: 30px;
+        border-radius: 15px;
+        width: 320px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .quote-icon { 
+        color: #FFD700; 
+        font-size: 1.5rem; 
+        margin-bottom: 15px; 
+        display: block; 
+    }
+    .testimonial-text { 
+        font-style: italic; 
+        line-height: 1.6; 
+        margin-bottom: 20px; 
+        opacity: 0.9; 
+    }
+    .testimonial-author { 
+        color: #FFD700; 
+        font-weight: bold; 
+        text-transform: uppercase; 
+        font-size: 0.9rem; 
+    }
+
+    /* CTA Pulse */
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5); }
+        70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+
+    .cta-shows { 
+        padding: 80px 20px; 
+        background-color: #0A192F; 
+        text-align: center; 
+    }
+    .btn-gold {
+        display: inline-block;
+        background: #FFD700;
+        color: #0A192F;
+        padding: 18px 50px;
+        border-radius: 50px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: 0.3s;
+        animation: pulse-gold 2s infinite;
+    }
+    .btn-gold:hover { 
+        background: white; 
+        transform: scale(1.05); 
+    }
+</style>
+
+<div class="hero-home">
+    {% if page.hero_image %}
+        {% image page.hero_image fill-1920x1080 as bg %}
+        <img src="{{ bg.url }}" class="hero-img-bg" alt="">
+    {% endif %}
+
+    <div class="hero-content">
+        {# La Photo rectangulaire avec bordure dorée #}
+        {% if page.hero_image %}
+            <div class="portrait-main">
+                {% image page.hero_image width-800 as port %}
+                <img src="{{ port.url }}" alt="Wassim El Fath">
+            </div>
+        {% endif %}
+
+        <h1>{{ page.hero_title }}</h1>
+        <h2>L'élégance du rire, l'énergie de Lyon.</h2>
+        
+        <div class="hero-description">
+            <p>
+                Lyonnais d'origine et Parisien d'adoption, <strong>Wassim El Fath</strong> transforme le quotidien en une aventure collective. 
+                Avec un regard aiguisé et une bienveillance naturelle, il s'empare de la scène pour raconter nos vies, 
+                nos travers et ces petits moments de grâce qui nous unissent.
+            </p>
+            <p style="margin-top: 15px; color: #FFD700; font-style: italic;">
+                Venez découvrir l'univers d'un artiste qui ne se contente pas de faire rire, mais qui crée des souvenirs.
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="testimonial-section">
+    <h2 style="font-size: 2.2rem; color: #FFD700;">Ils ont ri avec Wassim... 🎭</h2>
+    <div class="testimonial-container">
+        {% if testimonials %}
+            {% for t in testimonials %}
+                <div class="testimonial-card">
+                    <span class="quote-icon"><i class="fas fa-quote-left"></i></span>
+                    <p class="testimonial-text">"{{ t.quote }}"</p>
+                    <p class="testimonial-author">- {{ t.author }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="font-style: italic; opacity: 0.6;">Les témoignages arrivent bientôt... ⏳</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="cta-shows">
+    <h3 style="color: white; margin-bottom: 40px; font-size: 2rem;">{{ page.featured_shows_title }}</h3>
+    {% if page.spectacle_page %}
+        <a href="{% pageurl page.spectacle_page %}" class="btn-gold">
+            <i class="fas fa-ticket-alt"></i> VOIR TOUTES LES DATES
+        </a>
+    {% endif %}
+</section>
+
+{% endblock %}
